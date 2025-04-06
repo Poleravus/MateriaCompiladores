@@ -1,0 +1,410 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> decls
+Rule 2     decls -> decl decls
+Rule 3     decls -> decl
+Rule 4     decl -> INT ID EQUALS expr SEMICOLON
+Rule 5     decl -> RETURN expr SEMICOLON
+Rule 6     expr -> expr PLUS expr
+Rule 7     expr -> expr MINUS expr
+Rule 8     expr -> expr TIMES expr
+Rule 9     expr -> expr DIVIDE expr
+Rule 10    expr -> LPAREN expr RPAREN
+Rule 11    expr -> NUMBER
+Rule 12    expr -> ID
+
+Terminals, with rules where they appear
+
+DIVIDE               : 9
+EQUALS               : 4
+ID                   : 4 12
+INT                  : 4
+LPAREN               : 10
+MINUS                : 7
+NUMBER               : 11
+PLUS                 : 6
+RETURN               : 5
+RPAREN               : 10
+SEMICOLON            : 4 5
+TIMES                : 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+decl                 : 2 3
+decls                : 1 2
+expr                 : 4 5 6 6 7 7 8 8 9 9 10
+program              : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . decls
+    (2) decls -> . decl decls
+    (3) decls -> . decl
+    (4) decl -> . INT ID EQUALS expr SEMICOLON
+    (5) decl -> . RETURN expr SEMICOLON
+
+    INT             shift and go to state 4
+    RETURN          shift and go to state 5
+
+    program                        shift and go to state 1
+    decls                          shift and go to state 2
+    decl                           shift and go to state 3
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> decls .
+
+    $end            reduce using rule 1 (program -> decls .)
+
+
+state 3
+
+    (2) decls -> decl . decls
+    (3) decls -> decl .
+    (2) decls -> . decl decls
+    (3) decls -> . decl
+    (4) decl -> . INT ID EQUALS expr SEMICOLON
+    (5) decl -> . RETURN expr SEMICOLON
+
+    $end            reduce using rule 3 (decls -> decl .)
+    INT             shift and go to state 4
+    RETURN          shift and go to state 5
+
+    decl                           shift and go to state 3
+    decls                          shift and go to state 6
+
+state 4
+
+    (4) decl -> INT . ID EQUALS expr SEMICOLON
+
+    ID              shift and go to state 7
+
+
+state 5
+
+    (5) decl -> RETURN . expr SEMICOLON
+    (6) expr -> . expr PLUS expr
+    (7) expr -> . expr MINUS expr
+    (8) expr -> . expr TIMES expr
+    (9) expr -> . expr DIVIDE expr
+    (10) expr -> . LPAREN expr RPAREN
+    (11) expr -> . NUMBER
+    (12) expr -> . ID
+
+    LPAREN          shift and go to state 9
+    NUMBER          shift and go to state 10
+    ID              shift and go to state 11
+
+    expr                           shift and go to state 8
+
+state 6
+
+    (2) decls -> decl decls .
+
+    $end            reduce using rule 2 (decls -> decl decls .)
+
+
+state 7
+
+    (4) decl -> INT ID . EQUALS expr SEMICOLON
+
+    EQUALS          shift and go to state 12
+
+
+state 8
+
+    (5) decl -> RETURN expr . SEMICOLON
+    (6) expr -> expr . PLUS expr
+    (7) expr -> expr . MINUS expr
+    (8) expr -> expr . TIMES expr
+    (9) expr -> expr . DIVIDE expr
+
+    SEMICOLON       shift and go to state 13
+    PLUS            shift and go to state 14
+    MINUS           shift and go to state 15
+    TIMES           shift and go to state 16
+    DIVIDE          shift and go to state 17
+
+
+state 9
+
+    (10) expr -> LPAREN . expr RPAREN
+    (6) expr -> . expr PLUS expr
+    (7) expr -> . expr MINUS expr
+    (8) expr -> . expr TIMES expr
+    (9) expr -> . expr DIVIDE expr
+    (10) expr -> . LPAREN expr RPAREN
+    (11) expr -> . NUMBER
+    (12) expr -> . ID
+
+    LPAREN          shift and go to state 9
+    NUMBER          shift and go to state 10
+    ID              shift and go to state 11
+
+    expr                           shift and go to state 18
+
+state 10
+
+    (11) expr -> NUMBER .
+
+    SEMICOLON       reduce using rule 11 (expr -> NUMBER .)
+    PLUS            reduce using rule 11 (expr -> NUMBER .)
+    MINUS           reduce using rule 11 (expr -> NUMBER .)
+    TIMES           reduce using rule 11 (expr -> NUMBER .)
+    DIVIDE          reduce using rule 11 (expr -> NUMBER .)
+    RPAREN          reduce using rule 11 (expr -> NUMBER .)
+
+
+state 11
+
+    (12) expr -> ID .
+
+    SEMICOLON       reduce using rule 12 (expr -> ID .)
+    PLUS            reduce using rule 12 (expr -> ID .)
+    MINUS           reduce using rule 12 (expr -> ID .)
+    TIMES           reduce using rule 12 (expr -> ID .)
+    DIVIDE          reduce using rule 12 (expr -> ID .)
+    RPAREN          reduce using rule 12 (expr -> ID .)
+
+
+state 12
+
+    (4) decl -> INT ID EQUALS . expr SEMICOLON
+    (6) expr -> . expr PLUS expr
+    (7) expr -> . expr MINUS expr
+    (8) expr -> . expr TIMES expr
+    (9) expr -> . expr DIVIDE expr
+    (10) expr -> . LPAREN expr RPAREN
+    (11) expr -> . NUMBER
+    (12) expr -> . ID
+
+    LPAREN          shift and go to state 9
+    NUMBER          shift and go to state 10
+    ID              shift and go to state 11
+
+    expr                           shift and go to state 19
+
+state 13
+
+    (5) decl -> RETURN expr SEMICOLON .
+
+    INT             reduce using rule 5 (decl -> RETURN expr SEMICOLON .)
+    RETURN          reduce using rule 5 (decl -> RETURN expr SEMICOLON .)
+    $end            reduce using rule 5 (decl -> RETURN expr SEMICOLON .)
+
+
+state 14
+
+    (6) expr -> expr PLUS . expr
+    (6) expr -> . expr PLUS expr
+    (7) expr -> . expr MINUS expr
+    (8) expr -> . expr TIMES expr
+    (9) expr -> . expr DIVIDE expr
+    (10) expr -> . LPAREN expr RPAREN
+    (11) expr -> . NUMBER
+    (12) expr -> . ID
+
+    LPAREN          shift and go to state 9
+    NUMBER          shift and go to state 10
+    ID              shift and go to state 11
+
+    expr                           shift and go to state 20
+
+state 15
+
+    (7) expr -> expr MINUS . expr
+    (6) expr -> . expr PLUS expr
+    (7) expr -> . expr MINUS expr
+    (8) expr -> . expr TIMES expr
+    (9) expr -> . expr DIVIDE expr
+    (10) expr -> . LPAREN expr RPAREN
+    (11) expr -> . NUMBER
+    (12) expr -> . ID
+
+    LPAREN          shift and go to state 9
+    NUMBER          shift and go to state 10
+    ID              shift and go to state 11
+
+    expr                           shift and go to state 21
+
+state 16
+
+    (8) expr -> expr TIMES . expr
+    (6) expr -> . expr PLUS expr
+    (7) expr -> . expr MINUS expr
+    (8) expr -> . expr TIMES expr
+    (9) expr -> . expr DIVIDE expr
+    (10) expr -> . LPAREN expr RPAREN
+    (11) expr -> . NUMBER
+    (12) expr -> . ID
+
+    LPAREN          shift and go to state 9
+    NUMBER          shift and go to state 10
+    ID              shift and go to state 11
+
+    expr                           shift and go to state 22
+
+state 17
+
+    (9) expr -> expr DIVIDE . expr
+    (6) expr -> . expr PLUS expr
+    (7) expr -> . expr MINUS expr
+    (8) expr -> . expr TIMES expr
+    (9) expr -> . expr DIVIDE expr
+    (10) expr -> . LPAREN expr RPAREN
+    (11) expr -> . NUMBER
+    (12) expr -> . ID
+
+    LPAREN          shift and go to state 9
+    NUMBER          shift and go to state 10
+    ID              shift and go to state 11
+
+    expr                           shift and go to state 23
+
+state 18
+
+    (10) expr -> LPAREN expr . RPAREN
+    (6) expr -> expr . PLUS expr
+    (7) expr -> expr . MINUS expr
+    (8) expr -> expr . TIMES expr
+    (9) expr -> expr . DIVIDE expr
+
+    RPAREN          shift and go to state 24
+    PLUS            shift and go to state 14
+    MINUS           shift and go to state 15
+    TIMES           shift and go to state 16
+    DIVIDE          shift and go to state 17
+
+
+state 19
+
+    (4) decl -> INT ID EQUALS expr . SEMICOLON
+    (6) expr -> expr . PLUS expr
+    (7) expr -> expr . MINUS expr
+    (8) expr -> expr . TIMES expr
+    (9) expr -> expr . DIVIDE expr
+
+    SEMICOLON       shift and go to state 25
+    PLUS            shift and go to state 14
+    MINUS           shift and go to state 15
+    TIMES           shift and go to state 16
+    DIVIDE          shift and go to state 17
+
+
+state 20
+
+    (6) expr -> expr PLUS expr .
+    (6) expr -> expr . PLUS expr
+    (7) expr -> expr . MINUS expr
+    (8) expr -> expr . TIMES expr
+    (9) expr -> expr . DIVIDE expr
+
+    SEMICOLON       reduce using rule 6 (expr -> expr PLUS expr .)
+    PLUS            reduce using rule 6 (expr -> expr PLUS expr .)
+    MINUS           reduce using rule 6 (expr -> expr PLUS expr .)
+    RPAREN          reduce using rule 6 (expr -> expr PLUS expr .)
+    TIMES           shift and go to state 16
+    DIVIDE          shift and go to state 17
+
+  ! TIMES           [ reduce using rule 6 (expr -> expr PLUS expr .) ]
+  ! DIVIDE          [ reduce using rule 6 (expr -> expr PLUS expr .) ]
+  ! PLUS            [ shift and go to state 14 ]
+  ! MINUS           [ shift and go to state 15 ]
+
+
+state 21
+
+    (7) expr -> expr MINUS expr .
+    (6) expr -> expr . PLUS expr
+    (7) expr -> expr . MINUS expr
+    (8) expr -> expr . TIMES expr
+    (9) expr -> expr . DIVIDE expr
+
+    SEMICOLON       reduce using rule 7 (expr -> expr MINUS expr .)
+    PLUS            reduce using rule 7 (expr -> expr MINUS expr .)
+    MINUS           reduce using rule 7 (expr -> expr MINUS expr .)
+    RPAREN          reduce using rule 7 (expr -> expr MINUS expr .)
+    TIMES           shift and go to state 16
+    DIVIDE          shift and go to state 17
+
+  ! TIMES           [ reduce using rule 7 (expr -> expr MINUS expr .) ]
+  ! DIVIDE          [ reduce using rule 7 (expr -> expr MINUS expr .) ]
+  ! PLUS            [ shift and go to state 14 ]
+  ! MINUS           [ shift and go to state 15 ]
+
+
+state 22
+
+    (8) expr -> expr TIMES expr .
+    (6) expr -> expr . PLUS expr
+    (7) expr -> expr . MINUS expr
+    (8) expr -> expr . TIMES expr
+    (9) expr -> expr . DIVIDE expr
+
+    SEMICOLON       reduce using rule 8 (expr -> expr TIMES expr .)
+    PLUS            reduce using rule 8 (expr -> expr TIMES expr .)
+    MINUS           reduce using rule 8 (expr -> expr TIMES expr .)
+    TIMES           reduce using rule 8 (expr -> expr TIMES expr .)
+    DIVIDE          reduce using rule 8 (expr -> expr TIMES expr .)
+    RPAREN          reduce using rule 8 (expr -> expr TIMES expr .)
+
+  ! PLUS            [ shift and go to state 14 ]
+  ! MINUS           [ shift and go to state 15 ]
+  ! TIMES           [ shift and go to state 16 ]
+  ! DIVIDE          [ shift and go to state 17 ]
+
+
+state 23
+
+    (9) expr -> expr DIVIDE expr .
+    (6) expr -> expr . PLUS expr
+    (7) expr -> expr . MINUS expr
+    (8) expr -> expr . TIMES expr
+    (9) expr -> expr . DIVIDE expr
+
+    SEMICOLON       reduce using rule 9 (expr -> expr DIVIDE expr .)
+    PLUS            reduce using rule 9 (expr -> expr DIVIDE expr .)
+    MINUS           reduce using rule 9 (expr -> expr DIVIDE expr .)
+    TIMES           reduce using rule 9 (expr -> expr DIVIDE expr .)
+    DIVIDE          reduce using rule 9 (expr -> expr DIVIDE expr .)
+    RPAREN          reduce using rule 9 (expr -> expr DIVIDE expr .)
+
+  ! PLUS            [ shift and go to state 14 ]
+  ! MINUS           [ shift and go to state 15 ]
+  ! TIMES           [ shift and go to state 16 ]
+  ! DIVIDE          [ shift and go to state 17 ]
+
+
+state 24
+
+    (10) expr -> LPAREN expr RPAREN .
+
+    SEMICOLON       reduce using rule 10 (expr -> LPAREN expr RPAREN .)
+    PLUS            reduce using rule 10 (expr -> LPAREN expr RPAREN .)
+    MINUS           reduce using rule 10 (expr -> LPAREN expr RPAREN .)
+    TIMES           reduce using rule 10 (expr -> LPAREN expr RPAREN .)
+    DIVIDE          reduce using rule 10 (expr -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 10 (expr -> LPAREN expr RPAREN .)
+
+
+state 25
+
+    (4) decl -> INT ID EQUALS expr SEMICOLON .
+
+    INT             reduce using rule 4 (decl -> INT ID EQUALS expr SEMICOLON .)
+    RETURN          reduce using rule 4 (decl -> INT ID EQUALS expr SEMICOLON .)
+    $end            reduce using rule 4 (decl -> INT ID EQUALS expr SEMICOLON .)
+
