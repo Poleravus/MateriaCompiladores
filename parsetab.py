@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDEDIVIDE EQUALS ID INT LPAREN MINUS NUMBER PLUS RETURN RPAREN SEMICOLON TIMESprogram : declsdecls : decl decls\n| decldecl : INT ID EQUALS expr SEMICOLONdecl : RETURN expr SEMICOLONexpr : expr PLUS expr\n| expr MINUS expr\n| expr TIMES expr\n| expr DIVIDE exprexpr : LPAREN expr RPARENexpr : NUMBERexpr : ID'
+_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDEDIVIDE EQUALS ID INT LBRACE LPAREN MINUS NUMBER PLUS RBRACE RETURN RPAREN SEMICOLON TIMESprogram : functionfunction : INT ID LPAREN RPAREN blockblock : LBRACE decls RBRACEdecls : decl decls\n| decldecl : INT ID EQUALS expr SEMICOLONdecl : RETURN expr SEMICOLONexpr : expr PLUS expr\n| expr MINUS expr\n| expr TIMES expr\n| expr DIVIDE exprexpr : LPAREN expr RPARENexpr : NUMBERexpr : ID'
     
-_lr_action_items = {'INT':([0,3,13,25,],[4,4,-5,-4,]),'RETURN':([0,3,13,25,],[5,5,-5,-4,]),'$end':([1,2,3,6,13,25,],[0,-1,-3,-2,-5,-4,]),'ID':([4,5,9,12,14,15,16,17,],[7,11,11,11,11,11,11,11,]),'LPAREN':([5,9,12,14,15,16,17,],[9,9,9,9,9,9,9,]),'NUMBER':([5,9,12,14,15,16,17,],[10,10,10,10,10,10,10,]),'EQUALS':([7,],[12,]),'SEMICOLON':([8,10,11,19,20,21,22,23,24,],[13,-11,-12,25,-6,-7,-8,-9,-10,]),'PLUS':([8,10,11,18,19,20,21,22,23,24,],[14,-11,-12,14,14,-6,-7,-8,-9,-10,]),'MINUS':([8,10,11,18,19,20,21,22,23,24,],[15,-11,-12,15,15,-6,-7,-8,-9,-10,]),'TIMES':([8,10,11,18,19,20,21,22,23,24,],[16,-11,-12,16,16,16,16,-8,-9,-10,]),'DIVIDE':([8,10,11,18,19,20,21,22,23,24,],[17,-11,-12,17,17,17,17,-8,-9,-10,]),'RPAREN':([10,11,18,20,21,22,23,24,],[-11,-12,24,-6,-7,-8,-9,-10,]),}
+_lr_action_items = {'INT':([0,8,10,21,33,],[3,11,11,-7,-6,]),'$end':([1,2,7,13,],[0,-1,-2,-3,]),'ID':([3,11,12,17,20,22,23,24,25,],[4,15,19,19,19,19,19,19,19,]),'LPAREN':([4,12,17,20,22,23,24,25,],[5,17,17,17,17,17,17,17,]),'RPAREN':([5,18,19,26,28,29,30,31,32,],[6,-13,-14,32,-8,-9,-10,-11,-12,]),'LBRACE':([6,],[8,]),'RETURN':([8,10,21,33,],[12,12,-7,-6,]),'RBRACE':([9,10,14,21,33,],[13,-5,-4,-7,-6,]),'NUMBER':([12,17,20,22,23,24,25,],[18,18,18,18,18,18,18,]),'EQUALS':([15,],[20,]),'SEMICOLON':([16,18,19,27,28,29,30,31,32,],[21,-13,-14,33,-8,-9,-10,-11,-12,]),'PLUS':([16,18,19,26,27,28,29,30,31,32,],[22,-13,-14,22,22,-8,-9,-10,-11,-12,]),'MINUS':([16,18,19,26,27,28,29,30,31,32,],[23,-13,-14,23,23,-8,-9,-10,-11,-12,]),'TIMES':([16,18,19,26,27,28,29,30,31,32,],[24,-13,-14,24,24,24,24,-10,-11,-12,]),'DIVIDE':([16,18,19,26,27,28,29,30,31,32,],[25,-13,-14,25,25,25,25,-10,-11,-12,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'decls':([0,3,],[2,6,]),'decl':([0,3,],[3,3,]),'expr':([5,9,12,14,15,16,17,],[8,18,19,20,21,22,23,]),}
+_lr_goto_items = {'program':([0,],[1,]),'function':([0,],[2,]),'block':([6,],[7,]),'decls':([8,10,],[9,14,]),'decl':([8,10,],[10,10,]),'expr':([12,17,20,22,23,24,25,],[16,26,27,28,29,30,31,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,16 +27,18 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> decls','program',1,'p_program','sintactico.py',11),
-  ('decls -> decl decls','decls',2,'p_decls','sintactico.py',15),
-  ('decls -> decl','decls',1,'p_decls','sintactico.py',16),
-  ('decl -> INT ID EQUALS expr SEMICOLON','decl',5,'p_decl_variable','sintactico.py',20),
-  ('decl -> RETURN expr SEMICOLON','decl',3,'p_decl_return','sintactico.py',24),
-  ('expr -> expr PLUS expr','expr',3,'p_expr_binop','sintactico.py',28),
-  ('expr -> expr MINUS expr','expr',3,'p_expr_binop','sintactico.py',29),
-  ('expr -> expr TIMES expr','expr',3,'p_expr_binop','sintactico.py',30),
-  ('expr -> expr DIVIDE expr','expr',3,'p_expr_binop','sintactico.py',31),
-  ('expr -> LPAREN expr RPAREN','expr',3,'p_expr_group','sintactico.py',39),
-  ('expr -> NUMBER','expr',1,'p_expr_number','sintactico.py',43),
-  ('expr -> ID','expr',1,'p_expr_id','sintactico.py',47),
+  ('program -> function','program',1,'p_program','sintactico.py',10),
+  ('function -> INT ID LPAREN RPAREN block','function',5,'p_function','sintactico.py',14),
+  ('block -> LBRACE decls RBRACE','block',3,'p_block','sintactico.py',18),
+  ('decls -> decl decls','decls',2,'p_decls','sintactico.py',22),
+  ('decls -> decl','decls',1,'p_decls','sintactico.py',23),
+  ('decl -> INT ID EQUALS expr SEMICOLON','decl',5,'p_decl_variable','sintactico.py',27),
+  ('decl -> RETURN expr SEMICOLON','decl',3,'p_decl_return','sintactico.py',31),
+  ('expr -> expr PLUS expr','expr',3,'p_expr_binop','sintactico.py',35),
+  ('expr -> expr MINUS expr','expr',3,'p_expr_binop','sintactico.py',36),
+  ('expr -> expr TIMES expr','expr',3,'p_expr_binop','sintactico.py',37),
+  ('expr -> expr DIVIDE expr','expr',3,'p_expr_binop','sintactico.py',38),
+  ('expr -> LPAREN expr RPAREN','expr',3,'p_expr_group','sintactico.py',46),
+  ('expr -> NUMBER','expr',1,'p_expr_number','sintactico.py',50),
+  ('expr -> ID','expr',1,'p_expr_id','sintactico.py',54),
 ]

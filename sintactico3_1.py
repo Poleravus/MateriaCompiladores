@@ -1,19 +1,26 @@
 import ply.yacc as yacc
-from lexico import tokens
+from lexico3_1 import tokens
 
-# Gramática
 precedence = (
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE'),
 )
 
 def p_program(p):
-    'program : decls'
+    'program : function'
     print("Programa valido")
+
+def p_function(p):
+    'function : INT ID LPAREN RPAREN block'
+    pass
+
+def p_block(p):
+    'block : LBRACE decls RBRACE'
+    pass
 
 def p_decls(p):
     '''decls : decl decls
-            | decl'''
+             | decl'''
     pass
 
 def p_decl_variable(p):
@@ -29,23 +36,23 @@ def p_expr_binop(p):
             | expr MINUS expr
             | expr TIMES expr
             | expr DIVIDE expr'''
-    if p[2] in ['+', '-', '*', '/']:
-        if not isinstance(p[1], int) or not isinstance(p[3], int):
-            print(f"Error de sintaxis en operador: {p[2]}")
-            return
-    pass
+    # Validación simple para operador mal formado
+    if not isinstance(p[1], int) or not isinstance(p[3], int):
+        print(f"Error de sintaxis en operador: {p[2]}")
+        raise SyntaxError()
+    p[0] = 0
 
 def p_expr_group(p):
     'expr : LPAREN expr RPAREN'
-    pass
+    p[0] = p[2]
 
 def p_expr_number(p):
     'expr : NUMBER'
-    pass
+    p[0] = p[1]
 
 def p_expr_id(p):
     'expr : ID'
-    pass
+    p[0] = 0
 
 def p_error(p):
     if p:
