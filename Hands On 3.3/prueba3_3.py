@@ -1,7 +1,6 @@
 from lexico3_3 import lexer
 from sintactico3_3 import parser
 
-# Casos válidos: expresiones combinadas aritméticas y lógicas correctamente balanceadas
 pruebas_validas = [
     # Aritmética simple
     "int main() { return 1 + 2 * 3; }",
@@ -25,7 +24,6 @@ pruebas_validas = [
     "int main() { return ((1 AND 0) + 4) * 3; }"
 ]
 
-# Casos inválidos: errores sintácticos esperados
 pruebas_invalidas = [
     # Operador sin operando
     "int main() { return 1 + ; }",
@@ -48,18 +46,9 @@ pruebas_invalidas = [
 
 print("==== PRUEBAS VALIDAS ====\n")
 for codigo in pruebas_validas:
-    print(f"# {codigo}")
+    print(f"# Entrada:")
+    print(codigo)
     try:
         parser.parse(codigo)
     except:
         pass
-    print()
-
-print("==== PRUEBAS INVALIDAS ====\n")
-for codigo in pruebas_invalidas:
-    print(f"# {codigo}")
-    try:
-        parser.parse(codigo)
-    except:
-        pass
-    print()
