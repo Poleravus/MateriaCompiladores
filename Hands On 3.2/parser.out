@@ -1,0 +1,369 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    DIVIDE
+    EQUALS
+    MINUS
+    PLUS
+    TIMES
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> function
+Rule 2     function -> INT ID LPAREN RPAREN block
+Rule 3     block -> LBRACE decls RBRACE
+Rule 4     decls -> decl decls
+Rule 5     decls -> decl
+Rule 6     decl -> RETURN expr SEMICOLON
+Rule 7     expr -> expr AND term
+Rule 8     expr -> expr OR term
+Rule 9     expr -> term
+Rule 10    term -> NOT factor
+Rule 11    term -> factor
+Rule 12    factor -> LPAREN expr RPAREN
+Rule 13    factor -> BOOLEAN
+Rule 14    factor -> NUMBER
+
+Terminals, with rules where they appear
+
+AND                  : 7
+BOOLEAN              : 13
+DIVIDE               : 
+EQUALS               : 
+ID                   : 2
+INT                  : 2
+LBRACE               : 3
+LPAREN               : 2 12
+MINUS                : 
+NOT                  : 10
+NUMBER               : 14
+OR                   : 8
+PLUS                 : 
+RBRACE               : 3
+RETURN               : 6
+RPAREN               : 2 12
+SEMICOLON            : 6
+TIMES                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+block                : 2
+decl                 : 4 5
+decls                : 3 4
+expr                 : 6 7 8 12
+factor               : 10 11
+function             : 1
+program              : 0
+term                 : 7 8 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . function
+    (2) function -> . INT ID LPAREN RPAREN block
+
+    INT             shift and go to state 3
+
+    program                        shift and go to state 1
+    function                       shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> function .
+
+    $end            reduce using rule 1 (program -> function .)
+
+
+state 3
+
+    (2) function -> INT . ID LPAREN RPAREN block
+
+    ID              shift and go to state 4
+
+
+state 4
+
+    (2) function -> INT ID . LPAREN RPAREN block
+
+    LPAREN          shift and go to state 5
+
+
+state 5
+
+    (2) function -> INT ID LPAREN . RPAREN block
+
+    RPAREN          shift and go to state 6
+
+
+state 6
+
+    (2) function -> INT ID LPAREN RPAREN . block
+    (3) block -> . LBRACE decls RBRACE
+
+    LBRACE          shift and go to state 8
+
+    block                          shift and go to state 7
+
+state 7
+
+    (2) function -> INT ID LPAREN RPAREN block .
+
+    $end            reduce using rule 2 (function -> INT ID LPAREN RPAREN block .)
+
+
+state 8
+
+    (3) block -> LBRACE . decls RBRACE
+    (4) decls -> . decl decls
+    (5) decls -> . decl
+    (6) decl -> . RETURN expr SEMICOLON
+
+    RETURN          shift and go to state 11
+
+    decls                          shift and go to state 9
+    decl                           shift and go to state 10
+
+state 9
+
+    (3) block -> LBRACE decls . RBRACE
+
+    RBRACE          shift and go to state 12
+
+
+state 10
+
+    (4) decls -> decl . decls
+    (5) decls -> decl .
+    (4) decls -> . decl decls
+    (5) decls -> . decl
+    (6) decl -> . RETURN expr SEMICOLON
+
+    RBRACE          reduce using rule 5 (decls -> decl .)
+    RETURN          shift and go to state 11
+
+    decl                           shift and go to state 10
+    decls                          shift and go to state 13
+
+state 11
+
+    (6) decl -> RETURN . expr SEMICOLON
+    (7) expr -> . expr AND term
+    (8) expr -> . expr OR term
+    (9) expr -> . term
+    (10) term -> . NOT factor
+    (11) term -> . factor
+    (12) factor -> . LPAREN expr RPAREN
+    (13) factor -> . BOOLEAN
+    (14) factor -> . NUMBER
+
+    NOT             shift and go to state 16
+    LPAREN          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    NUMBER          shift and go to state 20
+
+    expr                           shift and go to state 14
+    term                           shift and go to state 15
+    factor                         shift and go to state 17
+
+state 12
+
+    (3) block -> LBRACE decls RBRACE .
+
+    $end            reduce using rule 3 (block -> LBRACE decls RBRACE .)
+
+
+state 13
+
+    (4) decls -> decl decls .
+
+    RBRACE          reduce using rule 4 (decls -> decl decls .)
+
+
+state 14
+
+    (6) decl -> RETURN expr . SEMICOLON
+    (7) expr -> expr . AND term
+    (8) expr -> expr . OR term
+
+    SEMICOLON       shift and go to state 21
+    AND             shift and go to state 22
+    OR              shift and go to state 23
+
+
+state 15
+
+    (9) expr -> term .
+
+    SEMICOLON       reduce using rule 9 (expr -> term .)
+    AND             reduce using rule 9 (expr -> term .)
+    OR              reduce using rule 9 (expr -> term .)
+    RPAREN          reduce using rule 9 (expr -> term .)
+
+
+state 16
+
+    (10) term -> NOT . factor
+    (12) factor -> . LPAREN expr RPAREN
+    (13) factor -> . BOOLEAN
+    (14) factor -> . NUMBER
+
+    LPAREN          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    NUMBER          shift and go to state 20
+
+    factor                         shift and go to state 24
+
+state 17
+
+    (11) term -> factor .
+
+    SEMICOLON       reduce using rule 11 (term -> factor .)
+    AND             reduce using rule 11 (term -> factor .)
+    OR              reduce using rule 11 (term -> factor .)
+    RPAREN          reduce using rule 11 (term -> factor .)
+
+
+state 18
+
+    (12) factor -> LPAREN . expr RPAREN
+    (7) expr -> . expr AND term
+    (8) expr -> . expr OR term
+    (9) expr -> . term
+    (10) term -> . NOT factor
+    (11) term -> . factor
+    (12) factor -> . LPAREN expr RPAREN
+    (13) factor -> . BOOLEAN
+    (14) factor -> . NUMBER
+
+    NOT             shift and go to state 16
+    LPAREN          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    NUMBER          shift and go to state 20
+
+    expr                           shift and go to state 25
+    term                           shift and go to state 15
+    factor                         shift and go to state 17
+
+state 19
+
+    (13) factor -> BOOLEAN .
+
+    SEMICOLON       reduce using rule 13 (factor -> BOOLEAN .)
+    AND             reduce using rule 13 (factor -> BOOLEAN .)
+    OR              reduce using rule 13 (factor -> BOOLEAN .)
+    RPAREN          reduce using rule 13 (factor -> BOOLEAN .)
+
+
+state 20
+
+    (14) factor -> NUMBER .
+
+    SEMICOLON       reduce using rule 14 (factor -> NUMBER .)
+    AND             reduce using rule 14 (factor -> NUMBER .)
+    OR              reduce using rule 14 (factor -> NUMBER .)
+    RPAREN          reduce using rule 14 (factor -> NUMBER .)
+
+
+state 21
+
+    (6) decl -> RETURN expr SEMICOLON .
+
+    RETURN          reduce using rule 6 (decl -> RETURN expr SEMICOLON .)
+    RBRACE          reduce using rule 6 (decl -> RETURN expr SEMICOLON .)
+
+
+state 22
+
+    (7) expr -> expr AND . term
+    (10) term -> . NOT factor
+    (11) term -> . factor
+    (12) factor -> . LPAREN expr RPAREN
+    (13) factor -> . BOOLEAN
+    (14) factor -> . NUMBER
+
+    NOT             shift and go to state 16
+    LPAREN          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    NUMBER          shift and go to state 20
+
+    term                           shift and go to state 26
+    factor                         shift and go to state 17
+
+state 23
+
+    (8) expr -> expr OR . term
+    (10) term -> . NOT factor
+    (11) term -> . factor
+    (12) factor -> . LPAREN expr RPAREN
+    (13) factor -> . BOOLEAN
+    (14) factor -> . NUMBER
+
+    NOT             shift and go to state 16
+    LPAREN          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    NUMBER          shift and go to state 20
+
+    term                           shift and go to state 27
+    factor                         shift and go to state 17
+
+state 24
+
+    (10) term -> NOT factor .
+
+    SEMICOLON       reduce using rule 10 (term -> NOT factor .)
+    AND             reduce using rule 10 (term -> NOT factor .)
+    OR              reduce using rule 10 (term -> NOT factor .)
+    RPAREN          reduce using rule 10 (term -> NOT factor .)
+
+
+state 25
+
+    (12) factor -> LPAREN expr . RPAREN
+    (7) expr -> expr . AND term
+    (8) expr -> expr . OR term
+
+    RPAREN          shift and go to state 28
+    AND             shift and go to state 22
+    OR              shift and go to state 23
+
+
+state 26
+
+    (7) expr -> expr AND term .
+
+    SEMICOLON       reduce using rule 7 (expr -> expr AND term .)
+    AND             reduce using rule 7 (expr -> expr AND term .)
+    OR              reduce using rule 7 (expr -> expr AND term .)
+    RPAREN          reduce using rule 7 (expr -> expr AND term .)
+
+
+state 27
+
+    (8) expr -> expr OR term .
+
+    SEMICOLON       reduce using rule 8 (expr -> expr OR term .)
+    AND             reduce using rule 8 (expr -> expr OR term .)
+    OR              reduce using rule 8 (expr -> expr OR term .)
+    RPAREN          reduce using rule 8 (expr -> expr OR term .)
+
+
+state 28
+
+    (12) factor -> LPAREN expr RPAREN .
+
+    SEMICOLON       reduce using rule 12 (factor -> LPAREN expr RPAREN .)
+    AND             reduce using rule 12 (factor -> LPAREN expr RPAREN .)
+    OR              reduce using rule 12 (factor -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 12 (factor -> LPAREN expr RPAREN .)
+

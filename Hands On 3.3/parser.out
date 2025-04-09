@@ -1,0 +1,1096 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> function
+Rule 2     function -> INT ID LPAREN RPAREN block
+Rule 3     block -> LBRACE decls RBRACE
+Rule 4     decls -> decl decls
+Rule 5     decls -> decl
+Rule 6     decl -> INT ID EQUALS expr SEMICOLON
+Rule 7     decl -> RETURN expr SEMICOLON
+Rule 8     expr -> expr PLUS term
+Rule 9     expr -> expr MINUS term
+Rule 10    expr -> term
+Rule 11    term -> term TIMES factor
+Rule 12    term -> term DIVIDE factor
+Rule 13    term -> factor
+Rule 14    factor -> LPAREN expr RPAREN
+Rule 15    factor -> logical
+Rule 16    logical -> logical AND logic_term
+Rule 17    logical -> logical OR logic_term
+Rule 18    logical -> logic_term
+Rule 19    logic_term -> NOT logic_factor
+Rule 20    logic_term -> logic_factor
+Rule 21    logic_factor -> LPAREN logical RPAREN
+Rule 22    logic_factor -> BOOLEAN
+Rule 23    logic_factor -> NUMBER
+Rule 24    logic_factor -> expr
+
+Terminals, with rules where they appear
+
+AND                  : 16
+BOOLEAN              : 22
+DIVIDE               : 12
+EQUALS               : 6
+ID                   : 2 6
+INT                  : 2 6
+LBRACE               : 3
+LPAREN               : 2 14 21
+MINUS                : 9
+NOT                  : 19
+NUMBER               : 23
+OR                   : 17
+PLUS                 : 8
+RBRACE               : 3
+RETURN               : 7
+RPAREN               : 2 14 21
+SEMICOLON            : 6 7
+TIMES                : 11
+error                : 
+
+Nonterminals, with rules where they appear
+
+block                : 2
+decl                 : 4 5
+decls                : 3 4
+expr                 : 6 7 8 9 14 24
+factor               : 11 12 13
+function             : 1
+logic_factor         : 19 20
+logic_term           : 16 17 18
+logical              : 15 16 17 21
+program              : 0
+term                 : 8 9 10 11 12
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . function
+    (2) function -> . INT ID LPAREN RPAREN block
+
+    INT             shift and go to state 3
+
+    program                        shift and go to state 1
+    function                       shift and go to state 2
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> function .
+
+    $end            reduce using rule 1 (program -> function .)
+
+
+state 3
+
+    (2) function -> INT . ID LPAREN RPAREN block
+
+    ID              shift and go to state 4
+
+
+state 4
+
+    (2) function -> INT ID . LPAREN RPAREN block
+
+    LPAREN          shift and go to state 5
+
+
+state 5
+
+    (2) function -> INT ID LPAREN . RPAREN block
+
+    RPAREN          shift and go to state 6
+
+
+state 6
+
+    (2) function -> INT ID LPAREN RPAREN . block
+    (3) block -> . LBRACE decls RBRACE
+
+    LBRACE          shift and go to state 8
+
+    block                          shift and go to state 7
+
+state 7
+
+    (2) function -> INT ID LPAREN RPAREN block .
+
+    $end            reduce using rule 2 (function -> INT ID LPAREN RPAREN block .)
+
+
+state 8
+
+    (3) block -> LBRACE . decls RBRACE
+    (4) decls -> . decl decls
+    (5) decls -> . decl
+    (6) decl -> . INT ID EQUALS expr SEMICOLON
+    (7) decl -> . RETURN expr SEMICOLON
+
+    INT             shift and go to state 11
+    RETURN          shift and go to state 12
+
+    decls                          shift and go to state 9
+    decl                           shift and go to state 10
+
+state 9
+
+    (3) block -> LBRACE decls . RBRACE
+
+    RBRACE          shift and go to state 13
+
+
+state 10
+
+    (4) decls -> decl . decls
+    (5) decls -> decl .
+    (4) decls -> . decl decls
+    (5) decls -> . decl
+    (6) decl -> . INT ID EQUALS expr SEMICOLON
+    (7) decl -> . RETURN expr SEMICOLON
+
+    RBRACE          reduce using rule 5 (decls -> decl .)
+    INT             shift and go to state 11
+    RETURN          shift and go to state 12
+
+    decl                           shift and go to state 10
+    decls                          shift and go to state 14
+
+state 11
+
+    (6) decl -> INT . ID EQUALS expr SEMICOLON
+
+    ID              shift and go to state 15
+
+
+state 12
+
+    (7) decl -> RETURN . expr SEMICOLON
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+
+    LPAREN          shift and go to state 19
+    NOT             shift and go to state 22
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    expr                           shift and go to state 16
+    term                           shift and go to state 17
+    factor                         shift and go to state 18
+    logical                        shift and go to state 20
+    logic_term                     shift and go to state 21
+    logic_factor                   shift and go to state 23
+
+state 13
+
+    (3) block -> LBRACE decls RBRACE .
+
+    $end            reduce using rule 3 (block -> LBRACE decls RBRACE .)
+
+
+state 14
+
+    (4) decls -> decl decls .
+
+    RBRACE          reduce using rule 4 (decls -> decl decls .)
+
+
+state 15
+
+    (6) decl -> INT ID . EQUALS expr SEMICOLON
+
+    EQUALS          shift and go to state 26
+
+
+state 16
+
+    (7) decl -> RETURN expr . SEMICOLON
+    (8) expr -> expr . PLUS term
+    (9) expr -> expr . MINUS term
+    (24) logic_factor -> expr .
+
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    SEMICOLON       shift and go to state 27
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    AND             reduce using rule 24 (logic_factor -> expr .)
+    OR              reduce using rule 24 (logic_factor -> expr .)
+    TIMES           reduce using rule 24 (logic_factor -> expr .)
+    DIVIDE          reduce using rule 24 (logic_factor -> expr .)
+
+  ! SEMICOLON       [ reduce using rule 24 (logic_factor -> expr .) ]
+  ! PLUS            [ reduce using rule 24 (logic_factor -> expr .) ]
+  ! MINUS           [ reduce using rule 24 (logic_factor -> expr .) ]
+
+
+state 17
+
+    (10) expr -> term .
+    (11) term -> term . TIMES factor
+    (12) term -> term . DIVIDE factor
+
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+    SEMICOLON       reduce using rule 10 (expr -> term .)
+    PLUS            reduce using rule 10 (expr -> term .)
+    MINUS           reduce using rule 10 (expr -> term .)
+    AND             reduce using rule 10 (expr -> term .)
+    OR              reduce using rule 10 (expr -> term .)
+    RPAREN          reduce using rule 10 (expr -> term .)
+    TIMES           shift and go to state 30
+    DIVIDE          shift and go to state 31
+
+  ! TIMES           [ reduce using rule 10 (expr -> term .) ]
+  ! DIVIDE          [ reduce using rule 10 (expr -> term .) ]
+
+
+state 18
+
+    (13) term -> factor .
+
+    SEMICOLON       reduce using rule 13 (term -> factor .)
+    PLUS            reduce using rule 13 (term -> factor .)
+    MINUS           reduce using rule 13 (term -> factor .)
+    AND             reduce using rule 13 (term -> factor .)
+    OR              reduce using rule 13 (term -> factor .)
+    TIMES           reduce using rule 13 (term -> factor .)
+    DIVIDE          reduce using rule 13 (term -> factor .)
+    RPAREN          reduce using rule 13 (term -> factor .)
+
+
+state 19
+
+    (14) factor -> LPAREN . expr RPAREN
+    (21) logic_factor -> LPAREN . logical RPAREN
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+
+    NOT             shift and go to state 22
+    LPAREN          shift and go to state 19
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    expr                           shift and go to state 32
+    logical                        shift and go to state 33
+    term                           shift and go to state 17
+    logic_term                     shift and go to state 21
+    factor                         shift and go to state 18
+    logic_factor                   shift and go to state 23
+
+state 20
+
+    (15) factor -> logical .
+    (16) logical -> logical . AND logic_term
+    (17) logical -> logical . OR logic_term
+
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    SEMICOLON       reduce using rule 15 (factor -> logical .)
+    PLUS            reduce using rule 15 (factor -> logical .)
+    MINUS           reduce using rule 15 (factor -> logical .)
+    TIMES           reduce using rule 15 (factor -> logical .)
+    DIVIDE          reduce using rule 15 (factor -> logical .)
+    RPAREN          reduce using rule 15 (factor -> logical .)
+    AND             shift and go to state 34
+    OR              shift and go to state 35
+
+  ! AND             [ reduce using rule 15 (factor -> logical .) ]
+  ! OR              [ reduce using rule 15 (factor -> logical .) ]
+
+
+state 21
+
+    (18) logical -> logic_term .
+
+    SEMICOLON       reduce using rule 18 (logical -> logic_term .)
+    PLUS            reduce using rule 18 (logical -> logic_term .)
+    MINUS           reduce using rule 18 (logical -> logic_term .)
+    AND             reduce using rule 18 (logical -> logic_term .)
+    OR              reduce using rule 18 (logical -> logic_term .)
+    TIMES           reduce using rule 18 (logical -> logic_term .)
+    DIVIDE          reduce using rule 18 (logical -> logic_term .)
+    RPAREN          reduce using rule 18 (logical -> logic_term .)
+
+
+state 22
+
+    (19) logic_term -> NOT . logic_factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+
+    LPAREN          shift and go to state 37
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+    NOT             shift and go to state 22
+
+    logic_factor                   shift and go to state 36
+    logical                        shift and go to state 20
+    expr                           shift and go to state 38
+    term                           shift and go to state 17
+    factor                         shift and go to state 18
+    logic_term                     shift and go to state 21
+
+state 23
+
+    (20) logic_term -> logic_factor .
+
+    SEMICOLON       reduce using rule 20 (logic_term -> logic_factor .)
+    PLUS            reduce using rule 20 (logic_term -> logic_factor .)
+    MINUS           reduce using rule 20 (logic_term -> logic_factor .)
+    AND             reduce using rule 20 (logic_term -> logic_factor .)
+    OR              reduce using rule 20 (logic_term -> logic_factor .)
+    TIMES           reduce using rule 20 (logic_term -> logic_factor .)
+    DIVIDE          reduce using rule 20 (logic_term -> logic_factor .)
+    RPAREN          reduce using rule 20 (logic_term -> logic_factor .)
+
+
+state 24
+
+    (22) logic_factor -> BOOLEAN .
+
+    SEMICOLON       reduce using rule 22 (logic_factor -> BOOLEAN .)
+    PLUS            reduce using rule 22 (logic_factor -> BOOLEAN .)
+    MINUS           reduce using rule 22 (logic_factor -> BOOLEAN .)
+    AND             reduce using rule 22 (logic_factor -> BOOLEAN .)
+    OR              reduce using rule 22 (logic_factor -> BOOLEAN .)
+    TIMES           reduce using rule 22 (logic_factor -> BOOLEAN .)
+    DIVIDE          reduce using rule 22 (logic_factor -> BOOLEAN .)
+    RPAREN          reduce using rule 22 (logic_factor -> BOOLEAN .)
+
+
+state 25
+
+    (23) logic_factor -> NUMBER .
+
+    SEMICOLON       reduce using rule 23 (logic_factor -> NUMBER .)
+    PLUS            reduce using rule 23 (logic_factor -> NUMBER .)
+    MINUS           reduce using rule 23 (logic_factor -> NUMBER .)
+    AND             reduce using rule 23 (logic_factor -> NUMBER .)
+    OR              reduce using rule 23 (logic_factor -> NUMBER .)
+    TIMES           reduce using rule 23 (logic_factor -> NUMBER .)
+    DIVIDE          reduce using rule 23 (logic_factor -> NUMBER .)
+    RPAREN          reduce using rule 23 (logic_factor -> NUMBER .)
+
+
+state 26
+
+    (6) decl -> INT ID EQUALS . expr SEMICOLON
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+
+    LPAREN          shift and go to state 19
+    NOT             shift and go to state 22
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    expr                           shift and go to state 39
+    term                           shift and go to state 17
+    factor                         shift and go to state 18
+    logical                        shift and go to state 20
+    logic_term                     shift and go to state 21
+    logic_factor                   shift and go to state 23
+
+state 27
+
+    (7) decl -> RETURN expr SEMICOLON .
+
+    INT             reduce using rule 7 (decl -> RETURN expr SEMICOLON .)
+    RETURN          reduce using rule 7 (decl -> RETURN expr SEMICOLON .)
+    RBRACE          reduce using rule 7 (decl -> RETURN expr SEMICOLON .)
+
+
+state 28
+
+    (8) expr -> expr PLUS . term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+
+    LPAREN          shift and go to state 19
+    NOT             shift and go to state 22
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    expr                           shift and go to state 38
+    term                           shift and go to state 40
+    factor                         shift and go to state 18
+    logical                        shift and go to state 20
+    logic_term                     shift and go to state 21
+    logic_factor                   shift and go to state 23
+
+state 29
+
+    (9) expr -> expr MINUS . term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+
+    LPAREN          shift and go to state 19
+    NOT             shift and go to state 22
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    expr                           shift and go to state 38
+    term                           shift and go to state 41
+    factor                         shift and go to state 18
+    logical                        shift and go to state 20
+    logic_term                     shift and go to state 21
+    logic_factor                   shift and go to state 23
+
+state 30
+
+    (11) term -> term TIMES . factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+
+    LPAREN          shift and go to state 19
+    NOT             shift and go to state 22
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    term                           shift and go to state 17
+    factor                         shift and go to state 42
+    expr                           shift and go to state 38
+    logical                        shift and go to state 20
+    logic_term                     shift and go to state 21
+    logic_factor                   shift and go to state 23
+
+state 31
+
+    (12) term -> term DIVIDE . factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+
+    LPAREN          shift and go to state 19
+    NOT             shift and go to state 22
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    term                           shift and go to state 17
+    factor                         shift and go to state 43
+    expr                           shift and go to state 38
+    logical                        shift and go to state 20
+    logic_term                     shift and go to state 21
+    logic_factor                   shift and go to state 23
+
+state 32
+
+    (14) factor -> LPAREN expr . RPAREN
+    (8) expr -> expr . PLUS term
+    (9) expr -> expr . MINUS term
+    (24) logic_factor -> expr .
+
+  ! shift/reduce conflict for RPAREN resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    RPAREN          shift and go to state 44
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    AND             reduce using rule 24 (logic_factor -> expr .)
+    OR              reduce using rule 24 (logic_factor -> expr .)
+    TIMES           reduce using rule 24 (logic_factor -> expr .)
+    DIVIDE          reduce using rule 24 (logic_factor -> expr .)
+
+  ! RPAREN          [ reduce using rule 24 (logic_factor -> expr .) ]
+  ! PLUS            [ reduce using rule 24 (logic_factor -> expr .) ]
+  ! MINUS           [ reduce using rule 24 (logic_factor -> expr .) ]
+
+
+state 33
+
+    (21) logic_factor -> LPAREN logical . RPAREN
+    (16) logical -> logical . AND logic_term
+    (17) logical -> logical . OR logic_term
+    (15) factor -> logical .
+
+  ! shift/reduce conflict for RPAREN resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    RPAREN          shift and go to state 45
+    AND             shift and go to state 34
+    OR              shift and go to state 35
+    PLUS            reduce using rule 15 (factor -> logical .)
+    MINUS           reduce using rule 15 (factor -> logical .)
+    TIMES           reduce using rule 15 (factor -> logical .)
+    DIVIDE          reduce using rule 15 (factor -> logical .)
+
+  ! RPAREN          [ reduce using rule 15 (factor -> logical .) ]
+  ! AND             [ reduce using rule 15 (factor -> logical .) ]
+  ! OR              [ reduce using rule 15 (factor -> logical .) ]
+
+
+state 34
+
+    (16) logical -> logical AND . logic_term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+
+    NOT             shift and go to state 22
+    LPAREN          shift and go to state 37
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    logical                        shift and go to state 20
+    logic_term                     shift and go to state 46
+    logic_factor                   shift and go to state 23
+    expr                           shift and go to state 38
+    term                           shift and go to state 17
+    factor                         shift and go to state 18
+
+state 35
+
+    (17) logical -> logical OR . logic_term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+
+    NOT             shift and go to state 22
+    LPAREN          shift and go to state 37
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    logical                        shift and go to state 20
+    logic_term                     shift and go to state 47
+    logic_factor                   shift and go to state 23
+    expr                           shift and go to state 38
+    term                           shift and go to state 17
+    factor                         shift and go to state 18
+
+state 36
+
+    (19) logic_term -> NOT logic_factor .
+    (20) logic_term -> logic_factor .
+
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 19 (logic_term -> NOT logic_factor .)
+  ! reduce/reduce conflict for PLUS resolved using rule 19 (logic_term -> NOT logic_factor .)
+  ! reduce/reduce conflict for MINUS resolved using rule 19 (logic_term -> NOT logic_factor .)
+  ! reduce/reduce conflict for AND resolved using rule 19 (logic_term -> NOT logic_factor .)
+  ! reduce/reduce conflict for OR resolved using rule 19 (logic_term -> NOT logic_factor .)
+  ! reduce/reduce conflict for TIMES resolved using rule 19 (logic_term -> NOT logic_factor .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 19 (logic_term -> NOT logic_factor .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 19 (logic_term -> NOT logic_factor .)
+    SEMICOLON       reduce using rule 19 (logic_term -> NOT logic_factor .)
+    PLUS            reduce using rule 19 (logic_term -> NOT logic_factor .)
+    MINUS           reduce using rule 19 (logic_term -> NOT logic_factor .)
+    AND             reduce using rule 19 (logic_term -> NOT logic_factor .)
+    OR              reduce using rule 19 (logic_term -> NOT logic_factor .)
+    TIMES           reduce using rule 19 (logic_term -> NOT logic_factor .)
+    DIVIDE          reduce using rule 19 (logic_term -> NOT logic_factor .)
+    RPAREN          reduce using rule 19 (logic_term -> NOT logic_factor .)
+
+  ! SEMICOLON       [ reduce using rule 20 (logic_term -> logic_factor .) ]
+  ! PLUS            [ reduce using rule 20 (logic_term -> logic_factor .) ]
+  ! MINUS           [ reduce using rule 20 (logic_term -> logic_factor .) ]
+  ! AND             [ reduce using rule 20 (logic_term -> logic_factor .) ]
+  ! OR              [ reduce using rule 20 (logic_term -> logic_factor .) ]
+  ! TIMES           [ reduce using rule 20 (logic_term -> logic_factor .) ]
+  ! DIVIDE          [ reduce using rule 20 (logic_term -> logic_factor .) ]
+  ! RPAREN          [ reduce using rule 20 (logic_term -> logic_factor .) ]
+
+
+state 37
+
+    (21) logic_factor -> LPAREN . logical RPAREN
+    (14) factor -> LPAREN . expr RPAREN
+    (16) logical -> . logical AND logic_term
+    (17) logical -> . logical OR logic_term
+    (18) logical -> . logic_term
+    (8) expr -> . expr PLUS term
+    (9) expr -> . expr MINUS term
+    (10) expr -> . term
+    (19) logic_term -> . NOT logic_factor
+    (20) logic_term -> . logic_factor
+    (11) term -> . term TIMES factor
+    (12) term -> . term DIVIDE factor
+    (13) term -> . factor
+    (21) logic_factor -> . LPAREN logical RPAREN
+    (22) logic_factor -> . BOOLEAN
+    (23) logic_factor -> . NUMBER
+    (24) logic_factor -> . expr
+    (14) factor -> . LPAREN expr RPAREN
+    (15) factor -> . logical
+
+    NOT             shift and go to state 22
+    LPAREN          shift and go to state 37
+    BOOLEAN         shift and go to state 24
+    NUMBER          shift and go to state 25
+
+    logical                        shift and go to state 33
+    expr                           shift and go to state 32
+    logic_term                     shift and go to state 21
+    term                           shift and go to state 17
+    logic_factor                   shift and go to state 23
+    factor                         shift and go to state 18
+
+state 38
+
+    (24) logic_factor -> expr .
+    (8) expr -> expr . PLUS term
+    (9) expr -> expr . MINUS term
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    SEMICOLON       reduce using rule 24 (logic_factor -> expr .)
+    AND             reduce using rule 24 (logic_factor -> expr .)
+    OR              reduce using rule 24 (logic_factor -> expr .)
+    TIMES           reduce using rule 24 (logic_factor -> expr .)
+    DIVIDE          reduce using rule 24 (logic_factor -> expr .)
+    RPAREN          reduce using rule 24 (logic_factor -> expr .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+
+  ! PLUS            [ reduce using rule 24 (logic_factor -> expr .) ]
+  ! MINUS           [ reduce using rule 24 (logic_factor -> expr .) ]
+
+
+state 39
+
+    (6) decl -> INT ID EQUALS expr . SEMICOLON
+    (8) expr -> expr . PLUS term
+    (9) expr -> expr . MINUS term
+    (24) logic_factor -> expr .
+
+  ! shift/reduce conflict for SEMICOLON resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+    SEMICOLON       shift and go to state 48
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    AND             reduce using rule 24 (logic_factor -> expr .)
+    OR              reduce using rule 24 (logic_factor -> expr .)
+    TIMES           reduce using rule 24 (logic_factor -> expr .)
+    DIVIDE          reduce using rule 24 (logic_factor -> expr .)
+
+  ! SEMICOLON       [ reduce using rule 24 (logic_factor -> expr .) ]
+  ! PLUS            [ reduce using rule 24 (logic_factor -> expr .) ]
+  ! MINUS           [ reduce using rule 24 (logic_factor -> expr .) ]
+
+
+state 40
+
+    (8) expr -> expr PLUS term .
+    (11) term -> term . TIMES factor
+    (12) term -> term . DIVIDE factor
+    (10) expr -> term .
+
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 8 (expr -> expr PLUS term .)
+  ! reduce/reduce conflict for PLUS resolved using rule 8 (expr -> expr PLUS term .)
+  ! reduce/reduce conflict for MINUS resolved using rule 8 (expr -> expr PLUS term .)
+  ! reduce/reduce conflict for AND resolved using rule 8 (expr -> expr PLUS term .)
+  ! reduce/reduce conflict for OR resolved using rule 8 (expr -> expr PLUS term .)
+  ! reduce/reduce conflict for TIMES resolved using rule 8 (expr -> expr PLUS term .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 8 (expr -> expr PLUS term .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 8 (expr -> expr PLUS term .)
+    SEMICOLON       reduce using rule 8 (expr -> expr PLUS term .)
+    PLUS            reduce using rule 8 (expr -> expr PLUS term .)
+    MINUS           reduce using rule 8 (expr -> expr PLUS term .)
+    AND             reduce using rule 8 (expr -> expr PLUS term .)
+    OR              reduce using rule 8 (expr -> expr PLUS term .)
+    TIMES           reduce using rule 8 (expr -> expr PLUS term .)
+    DIVIDE          reduce using rule 8 (expr -> expr PLUS term .)
+    RPAREN          reduce using rule 8 (expr -> expr PLUS term .)
+
+  ! TIMES           [ shift and go to state 30 ]
+  ! DIVIDE          [ shift and go to state 31 ]
+  ! SEMICOLON       [ reduce using rule 10 (expr -> term .) ]
+  ! PLUS            [ reduce using rule 10 (expr -> term .) ]
+  ! MINUS           [ reduce using rule 10 (expr -> term .) ]
+  ! AND             [ reduce using rule 10 (expr -> term .) ]
+  ! OR              [ reduce using rule 10 (expr -> term .) ]
+  ! TIMES           [ reduce using rule 10 (expr -> term .) ]
+  ! DIVIDE          [ reduce using rule 10 (expr -> term .) ]
+  ! RPAREN          [ reduce using rule 10 (expr -> term .) ]
+
+
+state 41
+
+    (9) expr -> expr MINUS term .
+    (11) term -> term . TIMES factor
+    (12) term -> term . DIVIDE factor
+    (10) expr -> term .
+
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 9 (expr -> expr MINUS term .)
+  ! reduce/reduce conflict for PLUS resolved using rule 9 (expr -> expr MINUS term .)
+  ! reduce/reduce conflict for MINUS resolved using rule 9 (expr -> expr MINUS term .)
+  ! reduce/reduce conflict for AND resolved using rule 9 (expr -> expr MINUS term .)
+  ! reduce/reduce conflict for OR resolved using rule 9 (expr -> expr MINUS term .)
+  ! reduce/reduce conflict for TIMES resolved using rule 9 (expr -> expr MINUS term .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 9 (expr -> expr MINUS term .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 9 (expr -> expr MINUS term .)
+    SEMICOLON       reduce using rule 9 (expr -> expr MINUS term .)
+    PLUS            reduce using rule 9 (expr -> expr MINUS term .)
+    MINUS           reduce using rule 9 (expr -> expr MINUS term .)
+    AND             reduce using rule 9 (expr -> expr MINUS term .)
+    OR              reduce using rule 9 (expr -> expr MINUS term .)
+    TIMES           reduce using rule 9 (expr -> expr MINUS term .)
+    DIVIDE          reduce using rule 9 (expr -> expr MINUS term .)
+    RPAREN          reduce using rule 9 (expr -> expr MINUS term .)
+
+  ! TIMES           [ shift and go to state 30 ]
+  ! DIVIDE          [ shift and go to state 31 ]
+  ! SEMICOLON       [ reduce using rule 10 (expr -> term .) ]
+  ! PLUS            [ reduce using rule 10 (expr -> term .) ]
+  ! MINUS           [ reduce using rule 10 (expr -> term .) ]
+  ! AND             [ reduce using rule 10 (expr -> term .) ]
+  ! OR              [ reduce using rule 10 (expr -> term .) ]
+  ! TIMES           [ reduce using rule 10 (expr -> term .) ]
+  ! DIVIDE          [ reduce using rule 10 (expr -> term .) ]
+  ! RPAREN          [ reduce using rule 10 (expr -> term .) ]
+
+
+state 42
+
+    (11) term -> term TIMES factor .
+    (13) term -> factor .
+
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 11 (term -> term TIMES factor .)
+  ! reduce/reduce conflict for PLUS resolved using rule 11 (term -> term TIMES factor .)
+  ! reduce/reduce conflict for MINUS resolved using rule 11 (term -> term TIMES factor .)
+  ! reduce/reduce conflict for AND resolved using rule 11 (term -> term TIMES factor .)
+  ! reduce/reduce conflict for OR resolved using rule 11 (term -> term TIMES factor .)
+  ! reduce/reduce conflict for TIMES resolved using rule 11 (term -> term TIMES factor .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 11 (term -> term TIMES factor .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 11 (term -> term TIMES factor .)
+    SEMICOLON       reduce using rule 11 (term -> term TIMES factor .)
+    PLUS            reduce using rule 11 (term -> term TIMES factor .)
+    MINUS           reduce using rule 11 (term -> term TIMES factor .)
+    AND             reduce using rule 11 (term -> term TIMES factor .)
+    OR              reduce using rule 11 (term -> term TIMES factor .)
+    TIMES           reduce using rule 11 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 11 (term -> term TIMES factor .)
+    RPAREN          reduce using rule 11 (term -> term TIMES factor .)
+
+  ! SEMICOLON       [ reduce using rule 13 (term -> factor .) ]
+  ! PLUS            [ reduce using rule 13 (term -> factor .) ]
+  ! MINUS           [ reduce using rule 13 (term -> factor .) ]
+  ! AND             [ reduce using rule 13 (term -> factor .) ]
+  ! OR              [ reduce using rule 13 (term -> factor .) ]
+  ! TIMES           [ reduce using rule 13 (term -> factor .) ]
+  ! DIVIDE          [ reduce using rule 13 (term -> factor .) ]
+  ! RPAREN          [ reduce using rule 13 (term -> factor .) ]
+
+
+state 43
+
+    (12) term -> term DIVIDE factor .
+    (13) term -> factor .
+
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 12 (term -> term DIVIDE factor .)
+  ! reduce/reduce conflict for PLUS resolved using rule 12 (term -> term DIVIDE factor .)
+  ! reduce/reduce conflict for MINUS resolved using rule 12 (term -> term DIVIDE factor .)
+  ! reduce/reduce conflict for AND resolved using rule 12 (term -> term DIVIDE factor .)
+  ! reduce/reduce conflict for OR resolved using rule 12 (term -> term DIVIDE factor .)
+  ! reduce/reduce conflict for TIMES resolved using rule 12 (term -> term DIVIDE factor .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 12 (term -> term DIVIDE factor .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 12 (term -> term DIVIDE factor .)
+    SEMICOLON       reduce using rule 12 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 12 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 12 (term -> term DIVIDE factor .)
+    AND             reduce using rule 12 (term -> term DIVIDE factor .)
+    OR              reduce using rule 12 (term -> term DIVIDE factor .)
+    TIMES           reduce using rule 12 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 12 (term -> term DIVIDE factor .)
+    RPAREN          reduce using rule 12 (term -> term DIVIDE factor .)
+
+  ! SEMICOLON       [ reduce using rule 13 (term -> factor .) ]
+  ! PLUS            [ reduce using rule 13 (term -> factor .) ]
+  ! MINUS           [ reduce using rule 13 (term -> factor .) ]
+  ! AND             [ reduce using rule 13 (term -> factor .) ]
+  ! OR              [ reduce using rule 13 (term -> factor .) ]
+  ! TIMES           [ reduce using rule 13 (term -> factor .) ]
+  ! DIVIDE          [ reduce using rule 13 (term -> factor .) ]
+  ! RPAREN          [ reduce using rule 13 (term -> factor .) ]
+
+
+state 44
+
+    (14) factor -> LPAREN expr RPAREN .
+
+    SEMICOLON       reduce using rule 14 (factor -> LPAREN expr RPAREN .)
+    PLUS            reduce using rule 14 (factor -> LPAREN expr RPAREN .)
+    MINUS           reduce using rule 14 (factor -> LPAREN expr RPAREN .)
+    AND             reduce using rule 14 (factor -> LPAREN expr RPAREN .)
+    OR              reduce using rule 14 (factor -> LPAREN expr RPAREN .)
+    TIMES           reduce using rule 14 (factor -> LPAREN expr RPAREN .)
+    DIVIDE          reduce using rule 14 (factor -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 14 (factor -> LPAREN expr RPAREN .)
+
+
+state 45
+
+    (21) logic_factor -> LPAREN logical RPAREN .
+
+    SEMICOLON       reduce using rule 21 (logic_factor -> LPAREN logical RPAREN .)
+    PLUS            reduce using rule 21 (logic_factor -> LPAREN logical RPAREN .)
+    MINUS           reduce using rule 21 (logic_factor -> LPAREN logical RPAREN .)
+    AND             reduce using rule 21 (logic_factor -> LPAREN logical RPAREN .)
+    OR              reduce using rule 21 (logic_factor -> LPAREN logical RPAREN .)
+    TIMES           reduce using rule 21 (logic_factor -> LPAREN logical RPAREN .)
+    DIVIDE          reduce using rule 21 (logic_factor -> LPAREN logical RPAREN .)
+    RPAREN          reduce using rule 21 (logic_factor -> LPAREN logical RPAREN .)
+
+
+state 46
+
+    (16) logical -> logical AND logic_term .
+    (18) logical -> logic_term .
+
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 16 (logical -> logical AND logic_term .)
+  ! reduce/reduce conflict for PLUS resolved using rule 16 (logical -> logical AND logic_term .)
+  ! reduce/reduce conflict for MINUS resolved using rule 16 (logical -> logical AND logic_term .)
+  ! reduce/reduce conflict for AND resolved using rule 16 (logical -> logical AND logic_term .)
+  ! reduce/reduce conflict for OR resolved using rule 16 (logical -> logical AND logic_term .)
+  ! reduce/reduce conflict for TIMES resolved using rule 16 (logical -> logical AND logic_term .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 16 (logical -> logical AND logic_term .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 16 (logical -> logical AND logic_term .)
+    SEMICOLON       reduce using rule 16 (logical -> logical AND logic_term .)
+    PLUS            reduce using rule 16 (logical -> logical AND logic_term .)
+    MINUS           reduce using rule 16 (logical -> logical AND logic_term .)
+    AND             reduce using rule 16 (logical -> logical AND logic_term .)
+    OR              reduce using rule 16 (logical -> logical AND logic_term .)
+    TIMES           reduce using rule 16 (logical -> logical AND logic_term .)
+    DIVIDE          reduce using rule 16 (logical -> logical AND logic_term .)
+    RPAREN          reduce using rule 16 (logical -> logical AND logic_term .)
+
+  ! SEMICOLON       [ reduce using rule 18 (logical -> logic_term .) ]
+  ! PLUS            [ reduce using rule 18 (logical -> logic_term .) ]
+  ! MINUS           [ reduce using rule 18 (logical -> logic_term .) ]
+  ! AND             [ reduce using rule 18 (logical -> logic_term .) ]
+  ! OR              [ reduce using rule 18 (logical -> logic_term .) ]
+  ! TIMES           [ reduce using rule 18 (logical -> logic_term .) ]
+  ! DIVIDE          [ reduce using rule 18 (logical -> logic_term .) ]
+  ! RPAREN          [ reduce using rule 18 (logical -> logic_term .) ]
+
+
+state 47
+
+    (17) logical -> logical OR logic_term .
+    (18) logical -> logic_term .
+
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 17 (logical -> logical OR logic_term .)
+  ! reduce/reduce conflict for PLUS resolved using rule 17 (logical -> logical OR logic_term .)
+  ! reduce/reduce conflict for MINUS resolved using rule 17 (logical -> logical OR logic_term .)
+  ! reduce/reduce conflict for AND resolved using rule 17 (logical -> logical OR logic_term .)
+  ! reduce/reduce conflict for OR resolved using rule 17 (logical -> logical OR logic_term .)
+  ! reduce/reduce conflict for TIMES resolved using rule 17 (logical -> logical OR logic_term .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 17 (logical -> logical OR logic_term .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 17 (logical -> logical OR logic_term .)
+    SEMICOLON       reduce using rule 17 (logical -> logical OR logic_term .)
+    PLUS            reduce using rule 17 (logical -> logical OR logic_term .)
+    MINUS           reduce using rule 17 (logical -> logical OR logic_term .)
+    AND             reduce using rule 17 (logical -> logical OR logic_term .)
+    OR              reduce using rule 17 (logical -> logical OR logic_term .)
+    TIMES           reduce using rule 17 (logical -> logical OR logic_term .)
+    DIVIDE          reduce using rule 17 (logical -> logical OR logic_term .)
+    RPAREN          reduce using rule 17 (logical -> logical OR logic_term .)
+
+  ! SEMICOLON       [ reduce using rule 18 (logical -> logic_term .) ]
+  ! PLUS            [ reduce using rule 18 (logical -> logic_term .) ]
+  ! MINUS           [ reduce using rule 18 (logical -> logic_term .) ]
+  ! AND             [ reduce using rule 18 (logical -> logic_term .) ]
+  ! OR              [ reduce using rule 18 (logical -> logic_term .) ]
+  ! TIMES           [ reduce using rule 18 (logical -> logic_term .) ]
+  ! DIVIDE          [ reduce using rule 18 (logical -> logic_term .) ]
+  ! RPAREN          [ reduce using rule 18 (logical -> logic_term .) ]
+
+
+state 48
+
+    (6) decl -> INT ID EQUALS expr SEMICOLON .
+
+    INT             reduce using rule 6 (decl -> INT ID EQUALS expr SEMICOLON .)
+    RETURN          reduce using rule 6 (decl -> INT ID EQUALS expr SEMICOLON .)
+    RBRACE          reduce using rule 6 (decl -> INT ID EQUALS expr SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for SEMICOLON in state 16 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 16 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 16 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 17 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 17 resolved as shift
+WARNING: shift/reduce conflict for AND in state 20 resolved as shift
+WARNING: shift/reduce conflict for OR in state 20 resolved as shift
+WARNING: shift/reduce conflict for RPAREN in state 32 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 32 resolved as shift
+WARNING: shift/reduce conflict for RPAREN in state 33 resolved as shift
+WARNING: shift/reduce conflict for AND in state 33 resolved as shift
+WARNING: shift/reduce conflict for OR in state 33 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 38 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 38 resolved as shift
+WARNING: shift/reduce conflict for SEMICOLON in state 39 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 39 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 39 resolved as shift
+WARNING: reduce/reduce conflict in state 36 resolved using rule (logic_term -> NOT logic_factor)
+WARNING: rejected rule (logic_term -> logic_factor) in state 36
+WARNING: reduce/reduce conflict in state 40 resolved using rule (expr -> expr PLUS term)
+WARNING: rejected rule (expr -> term) in state 40
+WARNING: reduce/reduce conflict in state 41 resolved using rule (expr -> expr MINUS term)
+WARNING: rejected rule (expr -> term) in state 41
+WARNING: reduce/reduce conflict in state 42 resolved using rule (term -> term TIMES factor)
+WARNING: rejected rule (term -> factor) in state 42
+WARNING: reduce/reduce conflict in state 43 resolved using rule (term -> term DIVIDE factor)
+WARNING: rejected rule (term -> factor) in state 43
+WARNING: reduce/reduce conflict in state 46 resolved using rule (logical -> logical AND logic_term)
+WARNING: rejected rule (logical -> logic_term) in state 46
+WARNING: reduce/reduce conflict in state 47 resolved using rule (logical -> logical OR logic_term)
+WARNING: rejected rule (logical -> logic_term) in state 47

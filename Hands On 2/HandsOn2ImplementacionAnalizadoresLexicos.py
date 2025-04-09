@@ -17,23 +17,22 @@ literals = ['+', '-', '*', '/', '=', ';']
 # Definir reglas para los tokens
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'ID')  # Revisar si es palabra reservada
+    t.type = reserved.get(t.value, 'ID')  
     return t
 
 def t_NUMBER(t):
     r'\d+'
-    t.value = int(t.value)  # Convertir a número
+    t.value = int(t.value)  
     return t
 
 def t_STRING(t):
-    r'"([^"\\]|\\.)*"'  # Cadena entre comillas
-    t.value = t.value[1:-1]  # Quitar comillas
+    r'"([^"\\]|\\.)*"'  
+    t.value = t.value[1:-1]  
     return t
 
 def t_COMMENT(t):
-    r'//.*|/\*[\s\S]*?\*/'  # Comentarios de una o varias líneas
-    pass  # Se ignoran los comentarios
-
+    r'//.*|/\*[\s\S]*?\*/'  
+    pass  
 # Ignorar espacios y tabulaciones
 t_ignore = ' \t\n'
 
@@ -56,7 +55,7 @@ def contar_tokens(codigo):
         if tok.type in conteo:
             conteo[tok.type] += 1
         elif tok.value in literals:
-            conteo['OPERADORES'] += 1  # Contar operadores y delimitadores
+            conteo['OPERADORES'] += 1  
 
     return conteo
 
@@ -82,5 +81,5 @@ return x;
 print("Conteo de tokens desde cadena:", contar_tokens(codigo))
 
 # Código de prueba desde un archivo
-nombre_archivo = "hola.c"  # Cambiar por el nombre real del archivo
+nombre_archivo = "hola.c"  
 contar_tokens_desde_archivo(nombre_archivo)
