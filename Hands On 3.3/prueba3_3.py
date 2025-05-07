@@ -52,3 +52,14 @@ for codigo in pruebas_validas:
         parser.parse(codigo)
     except:
         pass
+    print()
+
+print("==== PRUEBAS INVALIDAS ====\n")
+for codigo in pruebas_invalidas:
+    print(f"# Entrada:")
+    print(codigo)
+    try:
+        parser.parse(codigo)
+    except:
+        pass
+    print()
